@@ -23,7 +23,7 @@ var rarityLevels = ['common', 'uncommon', 'rare', 'important', 'ultra'];
 console.log('start');
 
 function sendEmail(subject, importance, location, details) {
-    var fullSubject = rarityLevels[importance-1] + subject;
+    var fullSubject = rarityLevels[importance-1] + ' ' + subject;
 
     var result = $.ajax({
       type: "POST",
@@ -73,6 +73,13 @@ var run = function() {
         var timeStr = 'Til' + msgBody.text().split('Til')[1];
         var fullTimeStr = timeStr.split(')')[0] + ')';
         var perc = parseInt(msgBody.find('a b').text().replace('%',''));
+        if (isNaN(perc)) {
+            perc = parseInt(msgBody.find('b:first').text().replace('%',''));
+        }
+        if (isNaN(perc)) {
+            console.log('Error with ' + msgBody.text());
+            return;
+        }
         var location = msgBody.find('a').attr('href');
         var analyzeText = msgBody.text().split(']')[0];
         processMsg(perc, location, analyzeText);
@@ -80,10 +87,3 @@ var run = function() {
     })
     setTimeout(run, 3000);
 }
-
-
-
-
-
-
-
