@@ -2,20 +2,22 @@ var pokemons =
 // [Pokemon, percent, level of importance (1-5) - 5 is most important,
 // words that have to be included (moves), words that cannot be included]
 [
-    ['Aerodactyl', 75, 5, [], ['Ancient']],
-    ['Hitmonlee', 80, 3, [], []],
-    ['Hitmonchan', 85, 3, [], []],
-    ['Skarmory', 85, 3, [], []],
-    ['Mantine', 85, 4, [], []],
-    ['Togetic', 0, 4, [], []],
-    ['Remoraid', 90, 4, [], []],
-    ['Grimer', 90, 4, [], []],
-    ['Weezing', 80, 4, [], []],
-    ['Lapras', 0, 5, [], []],
-    ['Teddiursa', 90, 3, [], []],
-    ['Porygon', 0, 5, [], []],
-    ['Unown', 0, 5, [], []],
-    ['Dratini', 85, 4, [], []]
+    ['aerodactyl', 75, 5, [], ['ancient']],
+    ['hitmonlee', 80, 3, [], []],
+    ['hitmonchan', 85, 3, [], []],
+    ['skarmory', 85, 3, [], []],
+    ['mantine', 85, 4, [], []],
+    ['togetic', 0, 4, [], []],
+    ['remoraid', 90, 4, [], []],
+    ['grimer', 90, 4, [], []],
+    ['weezing', 80, 4, [], []],
+    ['lapras', 0, 5, [], []],
+    ['teddiursa', 93, 3, [], []],
+    ['porygon', 0, 5, [], []],
+    ['unown', 0, 5, [], []],
+    ['dratini', 85, 4, [], []],
+    ['chinchou', 92, 3, [], []],
+    ['larvitar', 92, 3, [], []]
 ];
 
 var rarityLevels = ['common', 'uncommon', 'rare', 'important', 'ultra'];
@@ -23,7 +25,7 @@ var rarityLevels = ['common', 'uncommon', 'rare', 'important', 'ultra'];
 console.log('start');
 
 function sendEmail(subject, importance, location, details) {
-    var fullSubject = rarityLevels[importance-1] + ' ' + subject;
+    var fullSubject = 'subject ' + rarityLevels[importance-1] + ' ' + subject;
 
     var result = $.ajax({
       type: "POST",
@@ -78,10 +80,11 @@ var run = function() {
         }
         if (isNaN(perc)) {
             console.log('Error with ' + msgBody.text());
+            $(this).remove();
             return;
         }
         var location = msgBody.find('a').attr('href');
-        var analyzeText = msgBody.text().split(']')[0];
+        var analyzeText = msgBody.text().split(']')[0].toLowerCase();
         processMsg(perc, location, analyzeText);
         $(this).remove();
     })
