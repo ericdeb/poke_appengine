@@ -3,24 +3,32 @@ var pokemons =
 // words that have to be included (moves), words that cannot be included]
 [
     ['aerodactyl', 75, 5, [], ['ancient']],
-    ['hitmonlee', 80, 3, [], []],
+    ['lapras', 70, 5, ['blizzard'], []],
+    ['porygon', 70, 5, [], []],
+    ['muk', 70, 5, ['gunk'], []],
+    ['weezing', 70, 5, ['acid', 'bomb'], []],
+    ['unown', 0, 5, [], []],
+
+
+    ['dratini', 85, 4, [], []],
+    ['grimer', 80, 4, [], []],
+    ['koffing', 80, 4, [], []],
+
+    ['remoraid', 82, 3, [], []],
+    ['hitmonlee', 85, 3, [], []],
     ['hitmonchan', 85, 3, [], []],
     ['skarmory', 85, 3, [], []],
-    ['mantine', 85, 4, [], []],
-    ['togetic', 0, 4, [], []],
-    ['remoraid', 90, 4, [], []],
-    ['grimer', 90, 4, [], []],
-    ['weezing', 80, 4, [], []],
-    ['lapras', 0, 5, [], []],
-    ['teddiursa', 93, 3, [], []],
-    ['porygon', 0, 5, [], []],
-    ['unown', 0, 5, [], []],
-    ['dratini', 85, 4, [], []],
-    ['chinchou', 92, 3, [], []],
-    ['larvitar', 92, 3, [], []]
+    ['mantine', 82, 3, [], []],
+    ['togetic', 0, 3, [], []],
+    ['chinchou', 87, 3, [], []],
+    ['larvitar', 82, 3, [], []],
+    ['mareep', 82, 3, [], []],
+    ['sneasel', 82, 3, [], []],
+    ['tauros', 82, 3, ['tacke', 'earthquake'], []]
 ];
 
 var rarityLevels = ['common', 'uncommon', 'rare', 'important', 'ultra'];
+var seenSent = [];
 
 console.log('start');
 
@@ -48,14 +56,14 @@ function processMsg(perc, location, analyzeText) {
 
         for (var j=0; j < poke[3].length; j++) {
             var word = poke[3][j];
-            if (analyzeText.indexOf(word) < 0) goodWordsFound = false;
+            if (analyzeText.indexOf(word) < -1) goodWordsFound = false;
         }
 
         if (!goodWordsFound) continue;
 
         for (var k=0; k < poke[4].length; k++) {
             var word = poke[4][k];
-            if (analyzeText.indexOf(word) > 0) badWordsFound = true;
+            if (analyzeText.indexOf(word) > -1) badWordsFound = true;
         }
 
         if (badWordsFound) continue;
@@ -71,6 +79,8 @@ var initialize = function() {
 
 var run = function() {
     $('ts-message').each(function() {
+        var thisId = $(this).attr('id');
+        console.log('Processing ' + thisId);
         var msgBody = $(this).find('.message_body');
         var timeStr = 'Til' + msgBody.text().split('Til')[1];
         var fullTimeStr = timeStr.split(')')[0] + ')';
@@ -83,9 +93,12 @@ var run = function() {
             $(this).remove();
             return;
         }
+        if (seenSent.indexOf(thisId) > -1) return;
         var location = msgBody.find('a').attr('href');
         var analyzeText = msgBody.text().split(']')[0].toLowerCase();
         processMsg(perc, location, analyzeText);
+        seenSent.push(thisId);
+        console.log('Removing ' + thisId);
         $(this).remove();
     })
     setTimeout(run, 3000);
