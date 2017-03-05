@@ -6,7 +6,7 @@ var pokemons =
     ['lapras', 70, 5, ['blizzard'], []],
     ['porygon', 70, 5, [], []],
     ['muk', 70, 5, ['gunk'], []],
-    ['weezing', 70, 5, ['tackle', 'bomb'], []],
+    ['weezing', 70, 5, ['bomb'], []],
     ['unown', 0, 5, [], []],
 
 
