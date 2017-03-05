@@ -6,7 +6,7 @@ var pokemons =
     ['lapras', 70, 5, ['blizzard'], []],
     ['porygon', 70, 5, [], []],
     ['muk', 70, 5, ['gunk'], []],
-    ['weezing', 70, 5, ['acid', 'bomb'], []],
+    ['weezing', 70, 5, ['tackle', 'bomb'], []],
     ['unown', 0, 5, [], []],
 
 
@@ -57,7 +57,7 @@ function processMsg(perc, location, analyzeText) {
 
         for (var j=0; j < poke[3].length; j++) {
             var word = poke[3][j];
-            if (analyzeText.indexOf(word) < -1) goodWordsFound = false;
+            if (analyzeText.indexOf(word) < 0) goodWordsFound = false;
         }
 
         if (!goodWordsFound) continue;
