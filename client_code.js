@@ -2,7 +2,7 @@ var pokemons =
 // [Pokemon, percent, level of importance (1-5) - 5 is most important,
 // words that have to be included (moves), words that cannot be included]
 [
-    ['aerodactyl', 75, 5, [], ['ancient']],
+    ['aerodactyl', 70, 5, [], ['ancient']],
     ['lapras', 70, 5, ['blizzard'], []],
     ['porygon', 70, 5, [], []],
     ['muk', 70, 5, ['gunk'], []],
@@ -10,9 +10,9 @@ var pokemons =
     ['unown', 0, 5, [], []],
 
 
-    ['dratini', 85, 4, [], []],
-    ['grimer', 80, 4, [], []],
-    ['koffing', 80, 4, [], []],
+    ['dratini', 82, 4, [], []],
+    ['grimer', 82, 4, [], []],
+    ['koffing', 82, 4, [], []],
 
     ['remoraid', 82, 3, [], []],
     ['hitmonlee', 85, 3, [], []],
@@ -24,7 +24,8 @@ var pokemons =
     ['larvitar', 82, 3, [], []],
     ['mareep', 82, 3, [], []],
     ['sneasel', 82, 3, [], []],
-    ['tauros', 82, 3, ['tacke', 'earthquake'], []]
+    ['tauros', 82, 3, ['tackle', 'earthquake'], []],
+    ['pinsir', 82, 3, ['smash', 'combat'], []]
 ];
 
 var rarityLevels = ['common', 'uncommon', 'rare', 'important', 'ultra'];
